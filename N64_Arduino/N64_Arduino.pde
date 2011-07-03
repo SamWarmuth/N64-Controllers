@@ -11,6 +11,9 @@
  * All appropriate grounding and power lines
  */
  
+#define NUMBER_OF_PLAYERS 3;
+
+ 
  
 //Looking at the Controller plug with FLAT SIDE DOWN:
 // GROUND : Signal : 3.3V
@@ -71,6 +74,7 @@ void N64_send(unsigned char *buffer, char length);
 void N64_get();
 void print_N64_status();
 void translate_raw_data();
+int number_of_players;
 
 
 #include "crc_table.h"
@@ -79,7 +83,7 @@ void translate_raw_data();
 void setup()
 {
   Serial.begin(115200);
-
+  number_of_players = NUMBER_OF_PLAYERS;
 
 
   // Communication with gamecube controller on this pin
@@ -703,7 +707,7 @@ void loop()
     
     
     //get PLAYER 1
-    Serial.print("1");
+    Serial.print("0 ");
     // don't want interrupts getting in the way
     noInterrupts();
     // send those 3 bytes
@@ -716,12 +720,12 @@ void loop()
     // translate the data in N64_raw_dump to something useful
     translate_raw_data();
     abbreviated_status(0x4);
-     delay(500);
-        
-        
+    delay(10);
+
+    if (number_of_players > 1){  
     unsigned char command2[] = {0x01};
     //get PLAYER 2
-    Serial.print("2");
+    Serial.print("1 ");
     // don't want interrupts getting in the way
     noInterrupts();
     // send those 3 bytes
@@ -734,12 +738,13 @@ void loop()
     // translate the data in N64_raw_dump to something useful
     translate_raw_data();
     abbreviated_status(0x8);
-    delay(500);
+    delay(10);
+    }
     
-    
+    if (number_of_players > 2){  
     unsigned char command3[] = {0x01};
     //get PLAYER 3
-    Serial.print("3");
+    Serial.print("2 ");
     // don't want interrupts getting in the way
     noInterrupts();
     // send those 3 bytes
@@ -752,8 +757,8 @@ void loop()
     // translate the data in N64_raw_dump to something useful
     translate_raw_data();
     abbreviated_status(0x10);
-            delay(500);
-
+    delay(10);
+    }
    
     
    //   Serial.print("         Stick X:");
@@ -764,19 +769,22 @@ void loop()
 
     // DEBUG: print it
     //print_N64_status();
-    delay(25);
+
 }
 
 void abbreviated_status(int player){
   int i;
   for (i=0; i<16; i++) {
-       Serial.print(N64_raw_dump[i]/player, DEC);
-    }
-    Serial.print(' ');
-    Serial.print(N64_status.stick_x, DEC);
-    Serial.print(' ');
-    Serial.print(N64_status.stick_y, DEC);
-    Serial.print(" \n");
+    Serial.print(N64_raw_dump[i]/player, DEC);
+  }
+    
+
+  Serial.print(' ');
+  Serial.print(N64_status.stick_x, DEC);
+  Serial.print(' ');
+  Serial.print(N64_status.stick_y, DEC);
+  Serial.print(" \n");
+    
 };
 
 
