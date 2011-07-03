@@ -39,63 +39,52 @@ void serialEvent(Serial N64Connection)
   buttons = N64Connection.readString();
   pressed = split(buttons, ' ');
   //print(buttons);
-  if(pressed.length >= 3)
-  {
-  if(!u && Integer.valueOf(pressed[2]) > 20)
-  {
-    VKey.keyPress(KeyEvent.VK_UP);
-    u = !u;
-  } else if (u && Integer.valueOf(pressed[2]) < 20) {
-    VKey.keyRelease(KeyEvent.VK_UP);
-    u = !u;
-  }
-  if(!d && Integer.valueOf(pressed[2]) < -20)
-  {
-    VKey.keyPress(KeyEvent.VK_DOWN);
-    d = !d;
-  } else if (d && Integer.valueOf(pressed[2]) > -20) {
-    VKey.keyRelease(KeyEvent.VK_DOWN);
-    d = !d;
-  }
-  if(!r && Integer.valueOf(pressed[1]) > 20)
-  {
-    VKey.keyPress(KeyEvent.VK_RIGHT);
-    r = !r;
-  } else if (r && Integer.valueOf(pressed[1]) < 20) {
-    VKey.keyRelease(KeyEvent.VK_RIGHT);
-    r = !r;
-  }
-  if(!l &&Integer.valueOf(pressed[1]) < -20)
-  {
-    VKey.keyPress(KeyEvent.VK_LEFT);
-    l = !l;
-  } else if(l && Integer.valueOf(pressed[1]) > -20) {
-    VKey.keyRelease(KeyEvent.VK_LEFT);
-    l = !l;
-  }
-  for (int i = 0; i <= 15; i++)
-  {
-    if (pressed[0].charAt(i) == ('4'))
-    {
-      switch(i)
-      {
-      case 0:
-      if(!a)
-      {
-        VKey.keyPress(KeyEvent.VK_A);// A
-        a = !a;
-      }
-        break;
-      case 1:
-      if(!b)
-      {
-        VKey.keyPress(KeyEvent.VK_B);// B
-        b = !b;
-      }
-        break;
+  if(pressed.length >= 3){
+    if(!u && Integer.valueOf(pressed[2]) > 20){
+      VKey.keyPress(KeyEvent.VK_UP);
+      u = !u;
+    } else if (u && Integer.valueOf(pressed[2]) < 20) {
+      VKey.keyRelease(KeyEvent.VK_UP);
+      u = !u;
+    }
+    if(!d && Integer.valueOf(pressed[2]) < -20){
+      VKey.keyPress(KeyEvent.VK_DOWN);
+      d = !d;
+    } else if (d && Integer.valueOf(pressed[2]) > -20) {
+      VKey.keyRelease(KeyEvent.VK_DOWN);
+      d = !d;
+    }
+    if(!r && Integer.valueOf(pressed[1]) > 20){
+      VKey.keyPress(KeyEvent.VK_RIGHT);
+      r = !r;
+    } else if (r && Integer.valueOf(pressed[1]) < 20) {
+      VKey.keyRelease(KeyEvent.VK_RIGHT);
+      r = !r;
+    }
+    if(!l &&Integer.valueOf(pressed[1]) < -20){
+      VKey.keyPress(KeyEvent.VK_LEFT);
+      l = !l;
+    } else if(l && Integer.valueOf(pressed[1]) > -20) {
+      VKey.keyRelease(KeyEvent.VK_LEFT);
+      l = !l;
+    }
+    for (int i = 0; i <= 15; i++){
+      if (pressed[0].charAt(i) == ('4')){
+        switch(i){
+          case 0:
+            if(!a){
+              VKey.keyPress(KeyEvent.VK_A);// A
+              a = !a;
+            }
+            break;
+          case 1:
+            if(!b){
+              VKey.keyPress(KeyEvent.VK_B);// B
+              b = !b;
+            }
+            break;
       case 2:
-      if(!z)
-      {
+      if(!z){
         VKey.keyPress(KeyEvent.VK_Z);// Z
         z = !z;
       }

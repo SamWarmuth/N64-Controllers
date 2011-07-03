@@ -1,5 +1,5 @@
 /**
- * This CRC table for repeating bytes is take from
+ * This CRC table for repeating bytes is taken from
  * the cube64 project
  *  http://cia.vc/stats/project/navi-misc/cube64
  */
